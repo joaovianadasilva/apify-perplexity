@@ -22,9 +22,26 @@
       "type": "array",
       "description": "Lista completa de mensagens a ser enviada para a API do Perplexity.",
       "editor": "json",
-      "prefill": [
-        { "role": "user", "content": "" }
-      ]
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "title": "Role",
+            "description": "Tipo da mensagem dentro do chat, por exemplo system, user, assistant ou tool.",
+            "enum": ["system", "user", "assistant", "tool"],
+            "editor": "select",
+            "default": "user"
+          },
+          "content": {
+            "type": "string",
+            "title": "Conteúdo",
+            "description": "Texto enviado para a API nesse turno do chat.",
+            "editor": "textarea"
+          }
+        },
+        "required": ["role", "content"]
+      }
     },
     "model": {
       "title": "Modelo",
@@ -35,19 +52,17 @@
     },
     "temperature": {
       "title": "Temperature",
-      "type": "number",
+      "type": "string",
       "description": "Controla a aleatoriedade das respostas (0 = determinístico, 2 = máximo).",
-      "minimum": 0,
-      "maximum": 2,
-      "default": 0.2
+      "editor": "textfield",
+      "default": "0.2"
     },
     "topP": {
       "title": "Top P",
-      "type": "number",
-      "description": "Probabilidade cumulativa usada para nucleus sampling.",
-      "minimum": 0,
-      "maximum": 1,
-      "default": 0.95
+      "type": "string",
+      "description": "Probabilidade cumulativa usada para nucleus sampling (0–1).",
+      "editor": "textfield",
+      "default": "0.95"
     },
     "maxTokens": {
       "title": "Limite de tokens",
@@ -61,6 +76,7 @@
       "type": "string",
       "description": "Controla o comportamento da busca híbrida do Perplexity.",
       "enum": ["auto", "concise", "copilot", "online", "offline"],
+      "editor": "select",
       "default": "auto"
     },
     "returnRaw": {
