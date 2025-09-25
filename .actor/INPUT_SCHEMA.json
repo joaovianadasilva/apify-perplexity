@@ -1,0 +1,81 @@
+{
+  "title": "Configuração do prompt",
+  "description": "Parâmetros para enviar prompts ao Perplexity via Actor.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "prompt": {
+      "title": "Pergunta",
+      "type": "string",
+      "description": "Texto principal a ser enviado ao modelo. Ignorado se 'messages' for preenchido.",
+      "editor": "textarea",
+      "default": "Explique o ecossistema Apify + Perplexity em português."
+    },
+    "systemPrompt": {
+      "title": "Instruções do sistema",
+      "type": "string",
+      "description": "Mensagem opcional de sistema para guiar o modelo.",
+      "editor": "textarea"
+    },
+    "messages": {
+      "title": "Mensagens customizadas",
+      "type": "array",
+      "description": "Lista completa de mensagens a ser enviada para a API do Perplexity.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "title": "Role",
+            "enum": ["system", "user", "assistant", "tool"],
+            "default": "user"
+          },
+          "content": {
+            "type": "string",
+            "title": "Conteúdo",
+            "editor": "textarea"
+          }
+        },
+        "required": ["role", "content"]
+      }
+    },
+    "model": {
+      "title": "Modelo",
+      "type": "string",
+      "default": "llama-3.1-sonar-small-128k-online"
+    },
+    "temperature": {
+      "title": "Temperature",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2,
+      "default": 0.2
+    },
+    "topP": {
+      "title": "Top P",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "default": 0.95
+    },
+    "maxTokens": {
+      "title": "Limite de tokens",
+      "type": "integer",
+      "minimum": 16,
+      "maximum": 8000
+    },
+    "searchMode": {
+      "title": "Modo de busca",
+      "type": "string",
+      "enum": ["auto", "concise", "copilot", "online", "offline"],
+      "description": "Controla o comportamento da busca híbrida do Perplexity.",
+      "default": "auto"
+    },
+    "returnRaw": {
+      "title": "Salvar resposta bruta",
+      "type": "boolean",
+      "description": "Quando verdadeiro, salva a resposta completa no Key-value store padrão.",
+      "default": false
+    }
+  }
+}
