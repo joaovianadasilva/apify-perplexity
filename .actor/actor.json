@@ -1,0 +1,13 @@
+{
+  "actorSpecification": 1,
+  "name": "apify-perplexity-bridge",
+  "title": "Apify Perplexity Bridge",
+  "description": "Actor que encaminha prompts ao Perplexity e armazena respostas estruturadas.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "dockerfile": "./Dockerfile",
+  "inputSchema": "./INPUT_SCHEMA.json",
+  "environmentVariables": {
+    "PERPLEXITY_API_KEY": ""
+  }
+}
