@@ -7,7 +7,7 @@
     "prompt": {
       "title": "Pergunta",
       "type": "string",
-      "description": "Texto principal a ser enviado ao modelo. Ignorado se 'messages' for preenchido.",
+      "description": "Texto principal a ser enviado ao modelo.",
       "editor": "textarea",
       "default": "Explique o ecossistema Apify + Perplexity em português."
     },
@@ -16,34 +16,6 @@
       "type": "string",
       "description": "Mensagem opcional de sistema para guiar o modelo.",
       "editor": "textarea"
-    },
-    "messages": {
-      "title": "Mensagens customizadas",
-      "type": "array",
-      "description": "Lista completa de mensagens a ser enviada para a API do Perplexity.",
-      "editor": "json",
-      "prefill": [
-        { "role": "user", "content": "" }
-      ],
-      "items": {
-        "type": "object",
-        "properties": {
-          "role": {
-            "type": "string",
-            "title": "Role",
-            "description": "Tipo da mensagem dentro do chat, por exemplo system, user, assistant ou tool.",
-            "enum": ["system", "user", "assistant", "tool"],
-            "editor": "select"
-          },
-          "content": {
-            "type": "string",
-            "title": "Conteúdo",
-            "description": "Texto enviado para a API nesse turno do chat.",
-            "editor": "textarea"
-          }
-        },
-        "required": ["role", "content"]
-      }
     },
     "model": {
       "title": "Modelo",
@@ -77,9 +49,9 @@
       "title": "Modo de busca",
       "type": "string",
       "description": "Controla o comportamento da busca híbrida do Perplexity.",
-      "enum": ["web", "academic"],
+      "enum": ["auto", "concise", "copilot", "online", "offline"],
       "editor": "select",
-      "default": "web"
+      "default": "auto"
     },
     "returnRaw": {
       "title": "Salvar resposta bruta",
