@@ -7,10 +7,11 @@
   "buildTag": "latest",
   "dockerfile": "./Dockerfile",
   "inputSchema": "./INPUT_SCHEMA.json",
-  "environmentVariables": [
-    {
-      "name": "PERPLEXITY_API_KEY",
-      "value": ""
+  "environmentVariables": {
+    "PERPLEXITY_API_KEY": {
+      "value": "",
+      "isSecret": true,
+      "description": "Chave da API do Perplexity fornecida pela plataforma."
     }
-  ]
+  }
 }
