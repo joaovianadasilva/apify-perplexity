@@ -30,6 +30,7 @@
       "title": "Modelo",
       "type": "string",
       "description": "Identificador do modelo Perplexity a ser consultado.",
+      "editor": "textfield",
       "default": "llama-3.1-sonar-small-128k-online"
     },
     "temperature": {
