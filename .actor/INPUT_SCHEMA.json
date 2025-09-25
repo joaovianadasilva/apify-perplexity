@@ -77,9 +77,9 @@
       "title": "Modo de busca",
       "type": "string",
       "description": "Controla o comportamento da busca híbrida do Perplexity.",
-      "enum": ["auto", "concise", "copilot", "online", "offline"],
+      "enum": ["web", "academic"],
       "editor": "select",
-      "default": "auto"
+      "default": "web"
     },
     "returnRaw": {
       "title": "Salvar resposta bruta",
