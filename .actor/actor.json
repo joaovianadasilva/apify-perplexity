@@ -7,7 +7,10 @@
   "buildTag": "latest",
   "dockerfile": "./Dockerfile",
   "inputSchema": "./INPUT_SCHEMA.json",
-  "environmentVariables": {
-    "PERPLEXITY_API_KEY": ""
-  }
+  "environmentVariables": [
+    {
+      "name": "PERPLEXITY_API_KEY",
+      "value": ""
+    }
+  ]
 }
