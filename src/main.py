@@ -69,17 +69,23 @@ def _build_request_payload(
 ) -> Tuple[Dict[str, Any], Optional[str], List[Dict[str, str]]]:
     messages, prompt_summary = _normalise_messages(actor_input)
 
+    # Conversões seguras de string → float/int
+    temp_val = actor_input.get("temperature")
+    top_p_val = actor_input.get("topP")
+    max_tokens_val = actor_input.get("maxTokens")
+
     payload: Dict[str, Any] = {
         "model": actor_input.get("model") or DEFAULT_MODEL,
         "messages": messages,
-        "temperature": actor_input.get("temperature", 0.2),
-        "top_p": actor_input.get("topP", 0.95),
+        "temperature": float(temp_val) if temp_val is not None else 0.2,
+        "top_p": float(top_p_val) if top_p_val is not None else 0.95,
         "search_mode": actor_input.get("searchMode") or "auto",
     }
 
-    if actor_input.get("maxTokens") is not None:
-        payload["max_tokens"] = int(actor_input["maxTokens"])
+    if max_tokens_val is not None:
+        payload["max_tokens"] = int(max_tokens_val)
 
+    # Remove chaves com valor None
     payload = {key: value for key, value in payload.items() if value is not None}
 
     return payload, prompt_summary, messages
@@ -87,6 +93,7 @@ def _build_request_payload(
 
 async def _call_perplexity(payload: Mapping[str, Any]) -> Any:
     client = Perplexity()
+    # roda em thread para não travar o loop do Actor
     return await asyncio.to_thread(client.chat.completions.create, **payload)
 
 
@@ -97,10 +104,19 @@ async def main() -> None:
         actor_input: MutableMapping[str, Any] = await Actor.get_input() or {}
         log.info("Executando Actor Apify -> Perplexity", extra={"input": actor_input})
 
-        payload, prompt_summary, messages = _build_request_payload(actor_input)
-        log.debug("Payload preparado para envio", extra={"payload": payload})
+        try:
+            payload, prompt_summary, messages = _build_request_payload(actor_input)
+            log.debug("Payload preparado para envio", extra={"payload": payload})
+        except Exception as e:
+            log.error(f"Erro ao construir payload: {e}")
+            raise
 
-        completion = await _call_perplexity(payload)
+        try:
+            completion = await _call_perplexity(payload)
+        except Exception as e:
+            log.error(f"Erro ao chamar a API do Perplexity: {e}")
+            raise
+
         if hasattr(completion, "model_dump"):
             completion_dict = completion.model_dump()
         elif isinstance(completion, Mapping):
