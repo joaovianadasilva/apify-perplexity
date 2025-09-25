@@ -20,6 +20,7 @@
     "messages": {
       "title": "Mensagens customizadas",
       "type": "array",
+      "editor": "json",
       "description": "Lista completa de mensagens a ser enviada para a API do Perplexity.",
       "items": {
         "type": "object",
