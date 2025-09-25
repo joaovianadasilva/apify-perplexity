@@ -22,6 +22,9 @@
       "type": "array",
       "description": "Lista completa de mensagens a ser enviada para a API do Perplexity.",
       "editor": "json",
+      "prefill": [
+        { "role": "user", "content": "" }
+      ],
       "items": {
         "type": "object",
         "properties": {
@@ -30,8 +33,7 @@
             "title": "Role",
             "description": "Tipo da mensagem dentro do chat, por exemplo system, user, assistant ou tool.",
             "enum": ["system", "user", "assistant", "tool"],
-            "editor": "select",
-            "default": "user"
+            "editor": "select"
           },
           "content": {
             "type": "string",
