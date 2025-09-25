@@ -8,10 +8,6 @@
   "dockerfile": "./Dockerfile",
   "inputSchema": "./INPUT_SCHEMA.json",
   "environmentVariables": {
-    "PERPLEXITY_API_KEY": {
-      "value": "",
-      "isSecret": true,
-      "description": "Chave da API do Perplexity fornecida pela plataforma."
-    }
+    "PERPLEXITY_API_KEY": ""
   }
 }
